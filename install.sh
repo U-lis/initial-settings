@@ -93,11 +93,11 @@ do
 			;;
 		1 )
 			echo "Set All Items..."
-			setup_git git
-			setup_zsh zsh
+			. ./git/git-settings.sh $? "$INSTALL_COMMAND"
+			. ./zsh/zsh-settings.sh $SYSTEM
 			setup_vim vim
-			setup_font
-			sleep 1
+			. ./font/font-settings.sh $SYSTEM
+			read -p 'Press any key to continue...'
 			;;
 		2 ) 
 			echo "Set git alias..."
@@ -108,24 +108,24 @@ do
 			;;
 		3 )
 			echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
-			setup_zsh zsh
-			setup_font
-			sleep 1
+			. ./zsh/zsh-settings.sh $SYSTEM
+			. ./font/font-settings.sh $SYSTEM
+			read -p 'Press any key to continue...'
 			;;
 		4 ) 
 			echo "Set .vimrc with vundle/powerline-fonts..."
 			setup_vim vim
-			setup_font
-			sleep 1
+			. ./font/font-settings.sh $SYSTEM
+			read -p 'Press any key to continue...'
 			;;
 		5 ) 
 			echo "Install powerline-fonts..."
-			setup_font
-			sleep 1
+			. .font/font.sh $SYSTEM
+			read -p 'Press any key to continue...'
 			;;
 		* ) 
 			echo "Invalid Input. Please select a number from 0 to 5"
-			sleep 0.85
+			read -p 'Press any key to continue...'
 			;;
 	esac
 done
