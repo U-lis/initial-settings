@@ -37,4 +37,24 @@ Introduction
 2.2. zshrc
   * install zsh
   * install oh-my-zsh
+  * set `.zshrc`
   * install powerline-fonts(Inconsolata-dz, DejaVu Sans Mono)
+
+
+2.3. vimrc
+  * install vundle
+  * set `.vimrc`
+  * install vim plugins
+
+
+2.4. install fonts
+  * copy font files in user's local font directory
+  * These fonts enable zsh agnoster theme / vim-powerline plugin with pretty format
+
+
+3. TODO
+--------
+[ ] support RHEL/Fedora Linux
+[ ] use user's own .vimrc / .zshrc file
+[ ] install with one command like omzsh
+
