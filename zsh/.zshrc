@@ -79,6 +79,5 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
-DEFAULT_USER=ulismoon
-
 export PATH="/Users/ulismoon/anaconda/bin:$PATH"
+
