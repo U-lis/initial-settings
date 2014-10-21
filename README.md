@@ -1,19 +1,26 @@
 INITLAL SETTINGS
 ==================
-Initial Settings for new UNIX/LINUX Computer
+Initial Settings for new UNIX/Linux Computer
 --------------
 
 This Repo contains some dotfiles and local env. settings
 With this, You can set this:
  1. git alias
- 2. zshrc with install [zsh](http://www.zsh.org/), [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) with [powerline font](https://github.com/Lokaltog/powerline-fonts)
+ 2. zshrc with install [zsh](http://www.zsh.org/), [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
  3. vimrc with install [vundle](https://github.com/gmarik/Vundle.vim)
+ 4. Install [powerline font](https://github.com/Lokaltog/powerline-fonts)
+
 
 
 
 
 Introduction
 ===============
+0. Requirements
+-------------
+  - Internet connection
+  - git
+
 
 1. Installation
 ---------------
