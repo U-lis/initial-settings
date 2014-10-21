@@ -57,4 +57,4 @@ Introduction
 [ ] support RHEL/Fedora Linux
 [ ] use user's own .vimrc / .zshrc file
 [ ] install with one command like omzsh
-
+[ ] change terminal theme in script
