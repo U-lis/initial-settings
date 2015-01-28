@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set default values
 DEFAULT_SELECTION=1
