@@ -1,7 +1,7 @@
 DEFAULT_YN='Y'
 
 clear
-if [ $1 == 1 ]; then
+if [ $1 = 1 ]; then
 	read -p "You don't have git yet. Proceed with install git? [Y/n] : " input
 	input=${input:-$DEFAULT_YN}
 

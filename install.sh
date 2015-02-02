@@ -92,17 +92,17 @@ do
 		2 )
 			echo "Set git alias..."
 			has_command git
-			echo $?	# ehco를 해주지 않으면 값이 제대로 전달되지 않는다.
-			. ./git/git-settings.sh $? "$INSTALL_COMMAND"
+            res=$?
+			. ./git/git-settings.sh $res "$INSTALL_COMMAND"
 			read -p 'Press any key to continue...'
 			;;
 		3 )
 			echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
             has_command zsh
-            echo $?
-			. ./zsh/zsh-settings.sh $? $SYSTEM "$INSTALL_COMMAND"
-            echo $?
-            if [ $? == '1' ]; then
+            res=$?
+			. ./zsh/zsh-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+            res=$?
+            if [ $res = 1 ]; then
                 . ./font/font-settings.sh $SYSTEM
             fi
 			read -p "Press any key to continue..."

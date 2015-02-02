@@ -1,6 +1,6 @@
 clear
 
-if [ $1 == 'Linux' ]; then
+if [ $1 = 'Linux' ]; then
 	sudo cp *tf /usr/share/fonts/trutype/
 	fc-cache
 else
