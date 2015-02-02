@@ -1,7 +1,7 @@
 DEFAULT_YN='Y'
 
 clear
-USER=`whoami`
+USER=$(whoami)
 echo'Current user is $USER.'
 echo'If you want to change default user, type username.'
 read -p 'type just RETURN to use $USER as default user' user

@@ -6,7 +6,7 @@ DEFAULT_YN='Y'
 SYSTEM=$(uname)
 if [ $SYSTEM = 'Linux' ]; then
 	SYSTEM_TYPE=$SYSTEM
-	INSTALL_COMMAND="sudo apt-get -y "
+	INSTALL_COMMAND="sudo apt-get install -y "
 elif [ $SYSTEM = 'Darwin' ]; then
 	SYSTEM_TYPE='Mac OS X'
 	INSTALL_COMMAND="brew -y "
@@ -16,8 +16,8 @@ fi
 
 # Functions
 function has_command() {
-	command=`which $1`
-	if [ $command != '$1 not found' ]; then
+	COMMAND="$(which $1)"
+	if [ -z "$COMMAND" ]; then
 		return 1
 	else
 		return 0
@@ -25,7 +25,7 @@ function has_command() {
 }
 
 function setup_zsh() {
-	echo "zsh"	
+	echo "zsh"
 }
 
 function setup_vim() {
@@ -53,6 +53,7 @@ elif [ "$SYSTEM_TYPE" = 'Mac OS X' ]; then
 		input=${input:-'N'}
 		case $input in
 			[Yy] )
+				echo "install Homebrew..."
 				ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 				read -p "Press any key to continue..."
 				break
@@ -89,7 +90,7 @@ do
 	case $SELECTION in
 		0 )
 			echo "Exiting..."
-			exit 0 
+			exit 0
 			;;
 		1 )
 			echo "Set All Items..."
@@ -99,10 +100,10 @@ do
 			. ./font/font-settings.sh $SYSTEM
 			read -p 'Press any key to continue...'
 			;;
-		2 ) 
+		2 )
 			echo "Set git alias..."
 			has_command git
-			echo $?
+			echo $?	# ehco를 해주지 않으면 값이 제대로 전달되지 않는다.
 			. ./git/git-settings.sh $? "$INSTALL_COMMAND"
 			read -p 'Press any key to continue...'
 			;;
@@ -112,18 +113,18 @@ do
 			. ./font/font-settings.sh $SYSTEM
 			read -p 'Press any key to continue...'
 			;;
-		4 ) 
+		4 )
 			echo "Set .vimrc with vundle/powerline-fonts..."
 			setup_vim vim
 			. ./font/font-settings.sh $SYSTEM
 			read -p 'Press any key to continue...'
 			;;
-		5 ) 
+		5 )
 			echo "Install powerline-fonts..."
 			. .font/font.sh $SYSTEM
 			read -p 'Press any key to continue...'
 			;;
-		* ) 
+		* )
 			echo "Invalid Input. Please select a number from 0 to 5"
 			read -p 'Press any key to continue...'
 			;;

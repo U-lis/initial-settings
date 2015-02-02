@@ -13,6 +13,7 @@ if [ $1 = 1 ]; then
 			;;
 		[Nn] )
 			echo "Exit setting up git..."
+            return
 	esac
 fi
 
