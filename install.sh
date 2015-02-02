@@ -4,6 +4,7 @@
 DEFAULT_SELECTION=1
 DEFAULT_YN='Y'
 SYSTEM=$(uname)
+
 if [ $SYSTEM = 'Linux' ]; then
 	SYSTEM_TYPE=$SYSTEM
 	INSTALL_COMMAND="sudo apt-get install -y "
@@ -22,18 +23,6 @@ function has_command() {
 	else
 		return 0
 	fi
-}
-
-function setup_zsh() {
-	echo "zsh"
-}
-
-function setup_vim() {
-	echo "vim"
-}
-
-function setup_font() {
-	echo "font"
 }
 
 # Start from here
@@ -109,8 +98,11 @@ do
 			;;
 		3 )
 			echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
-			. ./zsh/zsh-settings.sh $SYSTEM
-			. ./font/font-settings.sh $SYSTEM
+            has_command zsh
+			. ./zsh/zsh-settings.sh $? $SYSTEM "$INSTALL_COMMAND"
+            if [ $? == '1' ]; then
+                . ./font/font-settings.sh $SYSTEM
+            fi
 			read -p 'Press any key to continue...'
 			;;
 		4 )

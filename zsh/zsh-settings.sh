@@ -8,15 +8,35 @@ read -p 'type just RETURN to use $USER as default user' user
 user=${user:-$USER}
 echo 'DEFAULT_USER='`whoami` >> .zshrc
 
-curl -L github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+if [ $1 == 1]; then
+    echo "You don't have Zsh yet. We will install zsh first."
+    read -p "Install Zsh first? If you enter 'n', quit install process. [Y/n] : " input
+    input=${input:-$DEFAULT_YN}
+
+    case $input in
+        [Yy] ) 
+            echo "Install Zsh.."
+            $3 zsh
+            echo "Zsh installed"
+            ;;
+        [Nn] )
+            "Quit install zsh/omzsh..."
+            return 0
+            ;;
+    esac
+fi
+
+echo "Install oh-my-zsh..."
+wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 # curl -L http://install.ohmyz.sh | sh
 
-if [ $1 = 'LINUX' ]; then
+if [ $2 == 'LINUX' ]; then
 	chsh -s /bin/zsh
 fi
 
-cp .zshrc ~/
-source ~/.oh-my-zsh/oh-my-zsh.sh
+#cp .zshrc ~/
+#source ~/.oh-my-zsh/oh-my-zsh.sh
 
 echo "install Zsh with OMZsh Done."
 echo "You have to restart your teminal application to use zsh."
+return 1
