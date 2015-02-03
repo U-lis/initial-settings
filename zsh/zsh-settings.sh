@@ -34,10 +34,12 @@ wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 	chsh -s /bin/zsh
 #fi
 
-#cp .zshrc ~/
-#echo "DEFAULT_USER=$user" >> .zshrc
-#source ~/.oh-my-zsh/oh-my-zsh.sh
+if [ ! -f .zshrc ]; then
+    echo "We found your .zshrc file. Set rc to this file..."
+    cp .zshrc ~/.zshrc
+    cource ~/.zshrc
+fi
 
 echo "Install Zsh with OMZsh Done."
-echo "You have to restart your terminal application to use Zsh."
+echo "You have to logout and login to use Zsh."
 return 1
