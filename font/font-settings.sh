@@ -1,10 +1,10 @@
 clear
 
 if [ $1 = 'Linux' ]; then
-	sudo cp *tf /usr/share/fonts/trutype/
+	sudo cp font/*tf /usr/share/fonts/truetype/
 	fc-cache
 else
-	cp *tf ~/Library/Fonts
+	cp font/*tf ~/Library/Fonts
 fi
 
 echo "Inconsolata-dz for powerline Installed"
