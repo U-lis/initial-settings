@@ -24,7 +24,7 @@ echo "Vundle Installed. Copying .vimrc file..."
 
 if [ ! -f .vimrc ]; then
     echo "vimrc not found. Use sample vimrc to default..."
-    cp vim/sample-vimrc ~/.vimrc
+    cp vim/sample_vimrc ~/.vimrc
 else
     echo "vimrc setting..."
     cp .vimrc ~/.vimrc
