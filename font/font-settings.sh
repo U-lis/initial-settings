@@ -3,7 +3,7 @@ clear
 if [ $1 = 'Linux' ]; then
 	sudo cp font/*tf /usr/share/fonts/truetype/
 	fc-cache
-else
+elif [ $1 = 'Darwin' ]; then
 	cp font/*tf ~/Library/Fonts
 fi
 

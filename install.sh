@@ -109,13 +109,18 @@ do
 			;;
 		4 )
 			echo "Set .vimrc with vundle/powerline-fonts..."
-			setup_vim vim
-			. ./font/font-settings.sh $SYSTEM
+            has_command vim
+            res = $?
+            . ./vim/vim-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+            res=$?
+            if [ $res = 1 ]; then
+                . ./font/font-settings.sh $SYSTEM
+            fi
 			read -p "Press any key to continue..."
 			;;
 		5 )
 			echo "Install powerline-fonts..."
-			. .font/font.sh $SYSTEM
+			. .font/font-settings.sh $SYSTEM
 			read -p "Press any key to continue..."
 			;;
 		* )

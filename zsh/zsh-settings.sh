@@ -37,9 +37,10 @@ wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 if [ ! -f .zshrc ]; then
     echo "We found your .zshrc file. Set rc to this file..."
     cp .zshrc ~/.zshrc
-    cource ~/.zshrc
+    source ~/.zshrc
 fi
 
 echo "Install Zsh with OMZsh Done."
 echo "You have to logout and login to use Zsh."
+sleep 2
 return 1
