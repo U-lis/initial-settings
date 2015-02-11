@@ -34,7 +34,7 @@ wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 	chsh -s /bin/zsh
 #fi
 
-if [ ! -f .zshrc ]; then
+if [ -f .zshrc ]; then
     echo "We found your .zshrc file. Set rc to this file..."
     cp .zshrc ~/.zshrc
     source ~/.zshrc
