@@ -1,6 +1,7 @@
 clear
 
 DEFAULT_YN='Y'
+DEFAULT_THEME='agnoster'
 CUR_USER=$(whoami)
 echo "Current user is $CUR_USER."
 echo "If you want to change default user, type username."
@@ -37,8 +38,15 @@ wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 if [ -f .zshrc ]; then
     echo "We found your .zshrc file. Set rc to this file..."
     cp .zshrc ~/.zshrc
-    source ~/.zshrc
+else
+    echo ".zshrc file not found. Use Default .zshrc file..."
+    echo "We will set defualt theme to $DEFAULT_THEME."
+    read -p "If you want another theme, type theme name or use defualt theme" theme
+    theme=${theme:-$DEFAULT_THEME}
+    mv ~/.zshrc ~/.zshrc.bak
+    sed "8s/.*/ZSH_THEME='$theme'/g" ~/.zshrc.bak > ~/.zshrc
 fi
+source ~/.zshrc
 
 echo "Install Zsh with OMZsh Done."
 echo "You have to logout and login to use Zsh."
