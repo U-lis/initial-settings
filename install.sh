@@ -110,7 +110,7 @@ do
 		4 )
 			echo "Set .vimrc with vundle/powerline-fonts..."
             has_command vim
-            res = $?
+            res=$?
             . ./vim/vim-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
             res=$?
             if [ $res = 1 ]; then
@@ -120,7 +120,7 @@ do
 			;;
 		5 )
 			echo "Install powerline-fonts..."
-			. .font/font-settings.sh $SYSTEM
+            . ./font/font-settings.sh $SYSTEM
 			read -p "Press any key to continue..."
 			;;
 		* )

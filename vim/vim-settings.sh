@@ -1,4 +1,4 @@
-claer
+clear
 
 DEFAULT_YN="Y"
 echo "vimrc setting requires Vundle"
@@ -24,10 +24,10 @@ echo "Vundle Installed. Copying .vimrc file..."
 
 if [ ! -f .vimrc ]; then
     echo "vimrc not found. Use sample vimrc to default..."
-    cp ./vim/sample-vimrc ~/.vimrc
+    cp vim/sample-vimrc ~/.vimrc
 else
     echo "vimrc setting..."
-    cp ./.vimrc ~/.vimrc
+    cp .vimrc ~/.vimrc
 fi
 
 vim +PluginInstall +qall
