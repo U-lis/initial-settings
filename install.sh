@@ -25,6 +25,33 @@ function has_command() {
 	fi
 }
 
+function install_git() {
+    echo "Set git alias..."
+    has_command git
+    res=$?
+    . ./git/git-settings.sh $res "$INSTALL_COMMAND"
+}
+
+function install_zsh() {
+    echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
+    has_command zsh
+    res=$?
+    . ./zsh/zsh-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+    return $?
+}
+
+function install_vim() {
+    echo "Set .vimrc with vundle/powerline-fonts..."
+    has_command vim
+    res=$?
+    . ./vim/vim-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+}
+
+function install_font() {
+    echo "Install powerline-fonts..."
+    . ./font/font-settings.sh $SYSTEM
+}
+
 # Start from here
 clear
 echo "This is simple Initial Setting Program"
@@ -83,44 +110,34 @@ do
 			;;
 		1 )
 			echo "Set All Items..."
-			. ./git/git-settings.sh $? "$INSTALL_COMMAND"
-			. ./zsh/zsh-settings.sh $SYSTEM
-			setup_vim vim
-			. ./font/font-settings.sh $SYSTEM
+            install_git
+            install_zsh
+            install_vim
+            install_font
 			read -p 'Press any key to continue...'
 			;;
 		2 )
-			echo "Set git alias..."
-			has_command git
-            res=$?
-			. ./git/git-settings.sh $res "$INSTALL_COMMAND"
+            install_git
 			read -p 'Press any key to continue...'
 			;;
 		3 )
-			echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
-            has_command zsh
-            res=$?
-			. ./zsh/zsh-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+            install_zsh
             res=$?
             if [ $res = 1 ]; then
-                . ./font/font-settings.sh $SYSTEM
+                install_font
             fi
 			read -p "Press any key to continue..."
 			;;
 		4 )
-			echo "Set .vimrc with vundle/powerline-fonts..."
-            has_command vim
-            res=$?
-            . ./vim/vim-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+            install_vim
             res=$?
             if [ $res = 1 ]; then
-                . ./font/font-settings.sh $SYSTEM
+                install_font
             fi
 			read -p "Press any key to continue..."
 			;;
 		5 )
-			echo "Install powerline-fonts..."
-            . ./font/font-settings.sh $SYSTEM
+            install_font
 			read -p "Press any key to continue..."
 			;;
 		* )
