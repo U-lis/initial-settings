@@ -26,7 +26,8 @@ Introduction
 ---------------
  - `$ git clone https://github.com/U-lis/initial-settings.git`
  - `$ cd initial-settings`
- - `$ ./install.sh (if permission problem occurs, retry after "$ chmod +x install.sh")`
+ - If you have your own .vimrc or .zshrc file, copy them with command `initial-settings$ cp /path/to/rc .` 
+ - `initial-settings$ ./install.sh` (if permission problem occurs, retry after "$ chmod +x install.sh")
  - follow introductions
 
 
@@ -61,7 +62,9 @@ Introduction
 
 3. TODO
 --------
- - [ ] support RHEL/Fedora Linux
- - [ ] use user's own .vimrc / .zshrc file
- - [ ] install with one command like omzsh
+ - [x] use user's own .vimrc / .zshrc file 
  - [ ] change terminal theme in script
+ - [ ] support Mac OS X
+ - [ ] support RHEL/Fedora Linux
+ - [ ] install with one command like omzsh
+
