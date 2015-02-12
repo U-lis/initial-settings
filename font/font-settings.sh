@@ -9,5 +9,11 @@ fi
 
 echo "Inconsolata-dz for powerline Installed"
 echo "DejaVu Sans Mono for powerline Installed"
-echo "Please set your terminal's default font to one of them"
-echo "to use your shell in good design"
+if [ -z $2 ]; then
+    echo "Please set your terminal's default font to one of them"
+    echo "to use your shell in good design"
+else
+    echo "You choose theme $2 so we will set font to Inconsolata-dz for Powerline"
+    gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Inconsolata-dz for Poiwerline Medium 11"
+    echo "Terminal font change done"
+fi
