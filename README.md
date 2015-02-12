@@ -63,7 +63,7 @@ Introduction
 3. TODO
 --------
  - [x] use user's own .vimrc / .zshrc file 
- - [ ] change terminal theme in script
+ - [x] change terminal theme in script
  - [ ] support Mac OS X
  - [ ] support RHEL/Fedora Linux
  - [ ] install with one command like omzsh
