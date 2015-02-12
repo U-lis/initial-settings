@@ -48,8 +48,9 @@ function install_vim() {
 }
 
 function install_font() {
-    theme=$1
-    echo "==============================$theme"
+    if [ $1 == 2 ]; then
+        theme='agnoster'
+    fi
     echo "Install powerline-fonts..."
     . ./font/font-settings.sh $SYSTEM $theme
 }
@@ -125,7 +126,6 @@ do
 		3 )
             install_zsh
             res=$?
-            echo "----------------------$res"
             if [ $res != 0 ]; then
                 install_font $res
             fi

@@ -52,4 +52,7 @@ source ~/.zshrc
 echo "Install Zsh with OMZsh Done."
 echo "You have to logout and login to use Zsh."
 sleep 2
-return $theme
+if [ $theme = 'agnoster' ]; then
+    return 2
+else
+    return 1
