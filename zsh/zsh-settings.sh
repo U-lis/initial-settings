@@ -42,7 +42,7 @@ else
     echo ".zshrc file not found. Use Default .zshrc file..."
     echo "We will set defualt theme to $DEFAULT_THEME."
     echo "If you choose $DEFAULT_THEME, font will change to 'Inconsolata-dz for Powerline Medium 11'"
-    read -p "If you want another theme, type theme name or use defualt theme" theme
+    read -p "If you want another theme, type theme name or use defualt theme : " theme
     theme=${theme:-$DEFAULT_THEME}
     mv ~/.zshrc ~/.zshrc.bak
     sed "8s/.*/ZSH_THEME='$theme'/g" ~/.zshrc.bak > ~/.zshrc
