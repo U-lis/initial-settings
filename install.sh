@@ -48,8 +48,10 @@ function install_vim() {
 }
 
 function install_font() {
+    theme=$1
+    echo "==============================$theme"
     echo "Install powerline-fonts..."
-    . ./font/font-settings.sh $SYSTEM $1
+    . ./font/font-settings.sh $SYSTEM $theme
 }
 
 # Start from here
@@ -123,6 +125,7 @@ do
 		3 )
             install_zsh
             res=$?
+            echo "----------------------$res"
             if [ $res != 0 ]; then
                 install_font $res
             fi
