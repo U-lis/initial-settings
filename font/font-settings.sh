@@ -14,7 +14,11 @@ if [ -z $2 ]; then
     echo "to use your shell in good design"
 elif [ $2 != 1 ]; then
     echo "You choose theme $2 so we will set font to Inconsolata-dz for Powerline"
-    gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type bool false
-    gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Inconsolata-dz for Powerline Medium 11"
+    if [ $1 = 'Linux']; then
+        gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type bool false
+        gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Inconsolata-dz for Powerline Medium 11"
+    else
+        #for mac
+    fi
     echo "Terminal font change done"
 fi
