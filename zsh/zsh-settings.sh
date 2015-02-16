@@ -27,8 +27,11 @@ if [ $1 = 1 ]; then
 fi
 
 echo "Install oh-my-zsh..."
-wget --no-check-certificate http://install.ohmyz.sh -O - | sh
-# curl -L http://install.ohmyz.sh | sh
+if [ $2 = 'Linux' ]; then
+    wget --no-check-certificate http://install.ohmyz.sh -O - | sh
+else
+    curl -L http://install.ohmyz.sh | sh
+fi
 
 #if [ $2 = 'LINUX' ]; then
     echo "change default shell to Zsh..."
@@ -37,7 +40,7 @@ wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 
 if [ -f .zshrc ]; then
     echo "We found your .zshrc file. Set rc to this file..."
-    cp .zshrc ~/.zshrc
+    cp zsh/sample_zshrc ~/.zshrc
 else
     echo ".zshrc file not found. Use Default .zshrc file..."
     echo "We will set defualt theme to $DEFAULT_THEME."
