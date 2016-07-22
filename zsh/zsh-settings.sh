@@ -47,6 +47,8 @@ else
     mv ~/.zshrc ~/.zshrc.bak
     sed "8s/.*/ZSH_THEME='$theme'/g" ~/.zshrc.bak > ~/.zshrc
 fi
+
+echo "DEFAULT_USER=$user" >> ~/.zshrc
 source ~/.zshrc
 
 echo "Install Zsh with OMZsh Done."
