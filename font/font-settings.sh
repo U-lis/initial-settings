@@ -14,10 +14,21 @@ if [ -z $2 ]; then
     echo "to use your shell in good design"
 elif [ $2 != 1 ]; then
     echo "You choose theme $2 so we will set font to Inconsolata-dz for Powerline"
-    if [ $1 = 'Linux']; then
-        gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type bool false
-        gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Inconsolata-dz for Powerline Medium 11"
-    else
+    if [ $1 = 'Linux' ]; then
+        shell_version="$(gnome-shell --version)"
+        IFS=' '; arr=($shell_version)
+        IFS='.'; ver=(${arr[2]})
+        minor_version=${ver[1]}
+        if [ "$minor_version" -lt "8" ]; then
+            gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type bool false
+            gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Inconsolata-dz for Powerline Medium 12"
+        else
+            default_profile="b1dcc9dd-5262-4d8d-a863-c897e6d979b9"
+            dconf write /org/gnome/terminal/legacy/profiles:/:$default_profile/use-system-font "false"
+            dconf write /org/gnome/terminal/legacy/profiles:/:$default_profile/font "'Inconsolata-dz for Powerline Medium 12'"
+        fi
+    elif [ $1 = 'Darwin' ]; then
+        echo "Does not support Mac OS X yet. Sorry..."
         #for mac
     fi
     echo "Terminal font change done"
