@@ -56,3 +56,6 @@ target/
 # Temp. files
 *~
 *.swp
+
+# Jetbrains
+.idea/
