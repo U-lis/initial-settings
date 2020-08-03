@@ -2,20 +2,20 @@ DEFAULT_YN='Y'
 
 clear
 if [ $1 = 1 ]; then
-	read -p "You don't have git yet. Proceed with install git? [Y/n] : " input
-	input=${input:-$DEFAULT_YN}
+  read -p "You don't have git yet. Proceed with install git? [Y/n] : " input
+  input=${input:-$DEFAULT_YN}
 
-	case $input in
-		[Yy] )
-			echo "install Git..."
-			$2 git
-			echo "git installed"
-			;;
-		[Nn] )
-			echo "Exit setting up git..."
-            return
-            ;;
-	esac
+  case $input in
+  [Yy])
+    echo "install Git..."
+    $2 git
+    echo "git installed"
+    ;;
+  [Nn])
+    echo "Exit setting up git..."
+    return
+    ;;
+  esac
 fi
 
 echo "setting git alias..."
