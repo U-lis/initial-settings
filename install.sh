@@ -126,6 +126,7 @@ while true; do
     echo "Set All Items..."
     install_git
     install_zsh
+    install_poetry
     wait
     ;;
   2)
