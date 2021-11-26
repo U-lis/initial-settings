@@ -108,7 +108,7 @@ fi
 
 while true; do
   clear
-  echo "You can set git alias, .zshrc with appropreate fonts."
+  echo "You can set git alias, .zshrc with appropriate fonts."
   echo "0) Quit"
   echo "1) Set All items [Default]"
   echo "2) Set git alias"
@@ -146,8 +146,7 @@ while true; do
     wait
     ;;
   *)
-    echo "Invalid Input. Please select a number between 0 and 5"
-    read -p "Press any key to continue..."
+    echo "Invalid Input. Please select a number between 0 and 4"
     wait
     ;;
   esac
