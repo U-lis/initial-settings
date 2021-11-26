@@ -8,7 +8,7 @@ echo "If you want to change default user, type username."
 read -p "type username or just press RETURN to use $CUR_USER as default user : " user
 user=${user:-$CUR_USER}
 
-if [ $1 = 1 ]; then
+if [ "$1" == 0 ]; then
   echo "You don't have Zsh yet. We will install zsh first."
   read -p "Install Zsh first? If you enter 'n', quit install process. [Y/n] : " input
   input=${input:-$DEFAULT_YN}

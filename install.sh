@@ -18,9 +18,9 @@ fi
 function has_command() {
   COMMAND="$(which $1)"
   if [ -z "$COMMAND" ]; then
-    return 1
-  else
     return 0
+  else
+    return 1
   fi
 }
 
