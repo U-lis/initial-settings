@@ -15,6 +15,10 @@ else
 fi
 
 # Functions
+function wait() {
+  raed -p "Press any key to continue..."
+}
+
 function has_command() {
   COMMAND="$(which $1)"
   if [ -z "$COMMAND" ]; then
@@ -83,7 +87,7 @@ elif [ "$SYSTEM_TYPE" = 'Mac OS X' ]; then
     [Yy])
       echo "install Homebrew..."
       ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      read -p "Press any key to continue..."
+      wait
       break
       ;;
     [sS])
@@ -99,7 +103,7 @@ elif [ "$SYSTEM_TYPE" = 'Mac OS X' ]; then
     esac
   done
 else
-  read -p "Press any key to continue..."
+  wait
 fi
 
 while true; do
@@ -122,11 +126,11 @@ while true; do
     echo "Set All Items..."
     install_git
     install_zsh
-    read -p 'Press any key to continue...'
+    wait
     ;;
   2)
     install_git
-    read -p 'Press any key to continue...'
+    wait
     ;;
   3)
     install_zsh
@@ -134,15 +138,16 @@ while true; do
     if [ $res != 0 ]; then
       install_font $res
     fi
-    read -p "Press any key to continue..."
+    wait
     ;;
   4)
     install_poetry
-    read -p "Press any key to continue..."
+    wait
     ;;
   *)
     echo "Invalid Input. Please select a number between 0 and 5"
     read -p "Press any key to continue..."
+    wait
     ;;
   esac
 done
