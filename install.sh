@@ -47,6 +47,24 @@ function install_font() {
   . ./font/font-settings.sh $SYSTEM $theme
 }
 
+function install_poetry() {
+  has_command python3
+  res=$?
+
+  if [ $res == 0 ]; then
+    echo "Poetry needs Python 3.6+. Please install python first."
+    return $res
+  fi
+
+  python3 --version
+  res=$?
+  echo $res
+
+  has_command poetry
+  res=$?
+  . ./poetry/poetry-settings.sh $res
+}
+
 # Start from here
 clear
 echo "This is simple Initial Setting Program"
@@ -86,11 +104,12 @@ fi
 
 while true; do
   clear
-  echo "You can set git alias, .zshrc, .vimrc with appropreate fonts."
+  echo "You can set git alias, .zshrc with appropreate fonts."
   echo "0) Quit"
   echo "1) Set All items [Default]"
-  echo "2) Set git alias only"
+  echo "2) Set git alias"
   echo "3) Set .zshrc with install zsh, oh-my-zsh, powerline-fonts"
+  echo "4) Install Poetry"
   read -p "Input your Choice [All] : " input
   SELECTION=${input:-$DEFAULT_SELECTION}
 
@@ -115,6 +134,10 @@ while true; do
     if [ $res != 0 ]; then
       install_font $res
     fi
+    read -p "Press any key to continue..."
+    ;;
+  4)
+    install_poetry
     read -p "Press any key to continue..."
     ;;
   *)
