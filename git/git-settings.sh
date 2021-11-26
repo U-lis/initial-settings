@@ -1,8 +1,8 @@
 DEFAULT_YN='Y'
 
 clear
+if [ "$1" = 0 ]; then
   read -p "You don't have git yet. Proceed with install git? [Y/n] : " input
-if [ $1 = 0 ]; then
   input=${input:-$DEFAULT_YN}
 
   case $input in

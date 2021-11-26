@@ -41,12 +41,12 @@ mv ~/.zshrc ~/.zshrc.bak
 sed "11s/.*/ZSH_THEME='$theme'/g" ~/.zshrc.bak >~/.zshrc
 
 echo "DEFAULT_USER=$user" >>~/.zshrc
-source ~/.zshrc
+source "$HOME/.zshrc"
 
 echo "Install Zsh with OMZsh Done."
 echo "You have to logout and login to use Zsh."
 sleep 2
-if [ $theme = 'agnoster' ]; then
+if [ "$theme" = 'agnoster' ]; then
   return 2
 else
   return 1
