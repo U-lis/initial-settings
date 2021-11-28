@@ -46,7 +46,7 @@ mv ~/.zshrc ~/.zshrc.bak
 sed "11s/.*/ZSH_THEME='$theme'/g" ~/.zshrc.bak >~/.zshrc
 
 echo "DEFAULT_USER=$user" >>~/.zshrc
-source "$HOME/.zshrc"
+#source "$HOME/.zshrc"
 
 echo "Install Zsh with OMZsh Done."
 echo -e "${PURPLE}${BOLD}You have to logout and login to use Zsh.${NORM}${NO_COLOR}"
