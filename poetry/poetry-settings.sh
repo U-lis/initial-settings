@@ -14,8 +14,8 @@ sudo apt install -y python3-distutils
 echo "Set alias pt to poetry..."
 cmd=(alias pt="poetry")
 if [ -f "$HOME/.zshrc" ]; then
-  echo "${cmd[@]}" >> "$HOME/.zshrc"
-#  . "$HOME/.zshrc"
+  echo "${cmd[@]}" >>"$HOME/.zshrc"
+  #  . "$HOME/.zshrc"
   echo "Setting up poetry plugin for zsh..."
   mkdir "$ZSH"/plugins/poetry
   poetry completions zsh >"$ZSH"/plugins/poetry/_poetry
@@ -25,6 +25,6 @@ if [ -f "$HOME/.zshrc" ]; then
   echo -e "${PURPLE}${BOLD}You have to restart terminal session or run '. ~/.zshrc' to apply alias${NORM}${NO_COLOR}"
   echo ""
 else
-  echo "${cmd[@]}" >> "$HOME/.bashrc"
+  echo "${cmd[@]}" >>"$HOME/.bashrc"
   . "$HOME/.bashrc"
 fi

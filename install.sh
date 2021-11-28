@@ -25,7 +25,7 @@ function wait() {
 }
 
 function has_command() {
-  COMMAND="$(which $1)"
+  COMMAND="$(which "$1")"
   if [ -z "$COMMAND" ]; then
     return 0
   else
