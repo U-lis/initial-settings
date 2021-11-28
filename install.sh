@@ -4,6 +4,11 @@
 DEFAULT_SELECTION=1
 SYSTEM=$(uname)
 
+BOLD=$(tput bold)
+NORM=$(tput sgr0)
+PURPLE='\033[0;35m'
+NO_COLOR='\033[0m'
+
 if [ "$SYSTEM" = 'Linux' ]; then
   SYSTEM_TYPE=$SYSTEM
   INSTALL_COMMAND="sudo apt-get install -y "
@@ -126,8 +131,15 @@ while true; do
     echo "Set All Items..."
     install_git
     install_zsh
+    res=$?
+    if [ $res != 0 ]; then
+      install_font $res
+    fi
     install_poetry
+    echo -e "${PURPLE}${BOLD}The script will log you out."
+    echo -e "All settings ar done, so you don't need to re run this script.${NORM}${NO_COLOR}"
     wait
+    gnome-session-quit --logout --force
     ;;
   2)
     install_git
@@ -139,7 +151,9 @@ while true; do
     if [ $res != 0 ]; then
       install_font $res
     fi
+    echo -e "${PURPLE}${BOLD}The script will log you out. Please run this script after re-login.${NORM}${NO_COLOR}"
     wait
+    gnome-session-quit --logout --force
     ;;
   4)
     install_poetry
