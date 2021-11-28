@@ -4,7 +4,7 @@
 DEFAULT_SELECTION=1
 SYSTEM=$(uname)
 
-if [ $SYSTEM = 'Linux' ]; then
+if [ "$SYSTEM" = 'Linux' ]; then
   SYSTEM_TYPE=$SYSTEM
   INSTALL_COMMAND="sudo apt-get install -y "
 #elif [ $SYSTEM = 'Darwin' ]; then
@@ -39,16 +39,16 @@ function install_zsh() {
   echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
   has_command zsh
   res=$?
-  . ./zsh/zsh-settings.sh $res $SYSTEM "$INSTALL_COMMAND"
+  . ./zsh/zsh-settings.sh $res "$SYSTEM" "$INSTALL_COMMAND"
   return $?
 }
 
 function install_font() {
-  if [ $1 == 2 ]; then
+  if [ "$1" == 2 ]; then
     theme='agnoster'
   fi
   echo "Install powerline-fonts..."
-  . ./font/font-settings.sh $SYSTEM $theme
+  . ./font/font-settings.sh "$SYSTEM" $theme
 }
 
 function install_poetry() {
