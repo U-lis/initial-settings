@@ -21,7 +21,7 @@ if [ "$1" == 0 ]; then
   case $input in
   [Yy])
     echo "Install Zsh.."
-    $3 zsh
+    $3 zsh zsh-common zsh-doc
     echo "Zsh installed"
     ;;
   [Nn])
