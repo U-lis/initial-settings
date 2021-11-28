@@ -16,7 +16,7 @@ fi
 
 # Functions
 function wait() {
-  raed -p "Press any key to continue..."
+  read -p "Press any key to continue..."
 }
 
 function has_command() {
