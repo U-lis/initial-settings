@@ -17,9 +17,10 @@ if [ -f "$HOME/.zshrc" ]; then
   echo "${cmd[@]}" >> "$HOME/.zshrc"
 #  . "$HOME/.zshrc"
   echo "Setting up poetry plugin for zsh..."
-  mkdir $ZSH/plugins/poetry
-  poetry completions zsh > $ZSH/plugins/poetry/_poetry
-  sed "73s/.*/plugins=(git poetry)"
+  mkdir "$ZSH"/plugins/poetry
+  poetry completions zsh >"$ZSH"/plugins/poetry/_poetry
+  mv ~/.zshrc ~/.zshrc.bak
+  sed "73s/.*/plugins=(git poetry)/g" ~/.zshrc.bak >~/.zshrc
   echo ""
   echo -e "${PURPLE}${BOLD}You have to restart terminal session or run '. ~/.zshrc' to apply alias${NORM}${NO_COLOR}"
   echo ""
