@@ -76,32 +76,32 @@ echo "Your System Type is $SYSTEM_TYPE"
 
 if [ "$SYSTEM_TYPE" = 'NOT VALID' ]; then
   echo "This program does not support current system type $SYSTEM."
-  echo "Exting..."
+  echo "Exiting..."
   exit 0
-elif [ "$SYSTEM_TYPE" = 'Mac OS X' ]; then
-  while true; do
-    echo "We use Homebrew. If not exist, we may install it."
-    read -p "Install Homebrew? If you disagree, quit this program. type s for skip. [y/s/N] " input
-    input=${input:-'N'}
-    case $input in
-    [Yy])
-      echo "install Homebrew..."
-      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      wait
-      break
-      ;;
-    [sS])
-      break
-      ;;
-    [Nn])
-      echo "Exiting..."
-      exit 0
-      ;;
-    *)
-      echo "Invalid input."
-      ;;
-    esac
-  done
+#elif [ "$SYSTEM_TYPE" = 'Mac OS X' ]; then
+#  while true; do
+#    echo "We use Homebrew. If not exist, we may install it."
+#    read -p "Install Homebrew? If you disagree, quit this program. type s for skip. [y/s/N] " input
+#    input=${input:-'N'}
+#    case $input in
+#    [Yy])
+#      echo "install Homebrew..."
+#      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+#      wait
+#      break
+#      ;;
+#    [sS])
+#      break
+#      ;;
+#    [Nn])
+#      echo "Exiting..."
+#      exit 0
+#      ;;
+#    *)
+#      echo "Invalid input."
+#      ;;
+#    esac
+#  done
 else
   wait
 fi
