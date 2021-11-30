@@ -14,6 +14,7 @@ sudo apt install -y python3-distutils
 echo "Set alias pt to poetry..."
 cmd=(alias pt="poetry")
 if [ -f "$HOME/.zshrc" ]; then
+  ZSH=/home/$(whoami)/.oh-my-zsh
   echo "${cmd[@]}" >>"$HOME/.zshrc"
   #  . "$HOME/.zshrc"
   echo "Setting up poetry plugin for zsh..."
