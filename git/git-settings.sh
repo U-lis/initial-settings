@@ -1,7 +1,7 @@
 DEFAULT_YN='Y'
 
 clear
-if [ $1 = 1 ]; then
+if [ "$1" = 0 ]; then
   read -p "You don't have git yet. Proceed with install git? [Y/n] : " input
   input=${input:-$DEFAULT_YN}
 
@@ -33,4 +33,6 @@ git config --global --replace-all alias.lg "log --color --graph \
 	--pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
 	--abbrev-commit --"
 echo "Now, git lg == git log (with pretty format)"
+git config --global core.editor vim
+echo "Now, your default git editor is vim"
 echo "Setting Complete!!"
