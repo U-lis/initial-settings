@@ -10,6 +10,7 @@ sudo apt install -y python3-distutils
 
 echo "Installing poetry..."
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+. "$HOME"/.profile
 
 echo "Set alias pt to poetry..."
 cmd=(alias pt="poetry")
