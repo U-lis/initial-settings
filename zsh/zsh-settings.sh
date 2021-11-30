@@ -50,7 +50,6 @@ echo "DEFAULT_USER=$user" >>~/.zshrc
 
 echo "Install Zsh with OMZsh Done."
 echo -e "${PURPLE}${BOLD}You have to logout and login to use Zsh.${NORM}${NO_COLOR}"
-sleep 2
 if [ "$theme" = 'agnoster' ]; then
   return 2
 else

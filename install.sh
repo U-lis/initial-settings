@@ -132,12 +132,14 @@ while true; do
     install_git
     wait
     install_zsh
-    res=$?
-    if [ $res != 0 ]; then
-      install_font $res
+    zsh_res=$?
+    wait
+    install_poetry
+    wait
+    if [ $zsh_res != 0 ]; then
+      install_font $zsh_res
       wait
     fi
-    install_poetry
     echo -e "${PURPLE}${BOLD}The script will log you out."
     echo -e "All settings ar done, so you don't need to re run this script.${NORM}${NO_COLOR}"
     wait
@@ -149,9 +151,10 @@ while true; do
     ;;
   3)
     install_zsh
-    res=$?
-    if [ $res != 0 ]; then
-      install_font $res
+    zsh_res=$?
+    wait
+    if [ $zsh_res != 0 ]; then
+      install_font $zsh_res
     fi
     echo -e "${PURPLE}${BOLD}The script will log you out. Please run this script after re-login.${NORM}${NO_COLOR}"
     wait

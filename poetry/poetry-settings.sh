@@ -5,11 +5,11 @@ NORM=$(tput sgr0)
 PURPLE='\033[0;35m'
 NO_COLOR='\033[0m'
 
-echo "Installing poetry..."
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-
 echo "To use poetry without error, python3-distutils package needed"
 sudo apt install -y python3-distutils
+
+echo "Installing poetry..."
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
 
 echo "Set alias pt to poetry..."
 cmd=(alias pt="poetry")
