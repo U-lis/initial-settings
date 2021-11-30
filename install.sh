@@ -130,10 +130,12 @@ while true; do
   1)
     echo "Set All Items..."
     install_git
+    wait
     install_zsh
     res=$?
     if [ $res != 0 ]; then
       install_font $res
+      wait
     fi
     install_poetry
     echo -e "${PURPLE}${BOLD}The script will log you out."
