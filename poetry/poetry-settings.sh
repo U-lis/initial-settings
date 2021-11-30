@@ -16,6 +16,7 @@ echo "Set alias pt to poetry..."
 cmd=(alias pt="poetry")
 if [ -f "$HOME/.zshrc" ]; then
   ZSH=/home/$(whoami)/.oh-my-zsh
+  echo "export PATH=""$HOME""/.poetry/bin:""$PATH" >>"$HOME/.zshrc"
   echo "${cmd[@]}" >>"$HOME/.zshrc"
   #  . "$HOME/.zshrc"
   echo "Setting up poetry plugin for zsh..."
