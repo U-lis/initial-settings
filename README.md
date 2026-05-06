@@ -6,6 +6,7 @@ With this, You can set this:
  1. set git aliases (See 2.1)
  2. set zshrc with install [zsh](http://www.zsh.org/), [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
  3. Install [powerline font](https://github.com/Lokaltog/powerline-fonts)
+ 4. Install [uv](https://docs.astral.sh/uv/) (Python package & project manager)
 
 # Introduction
 ## 0. Requirements

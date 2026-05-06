@@ -56,22 +56,15 @@ function install_font() {
   . ./font/font-settings.sh "$SYSTEM" $theme
 }
 
-function install_poetry() {
-  has_command python3
+function install_uv() {
+  has_command uv
   res=$?
-
-  if [ $res == 0 ]; then
-    echo "Poetry needs Python 3.6+. Please install python first."
-    return $res
+  if [ $res != 0 ]; then
+    echo "uv is already installed."
+    uv --version
+    return 0
   fi
-
-  python3 --version
-  res=$?
-  echo $res
-
-  has_command poetry
-  res=$?
-  . ./poetry/poetry-settings.sh $res
+  . ./uv/uv-settings.sh
 }
 
 # Start from here
@@ -118,7 +111,7 @@ while true; do
   echo "1) Set All items [Default]"
   echo "2) Set git alias"
   echo "3) Set .zshrc with install zsh, oh-my-zsh, powerline-fonts"
-  echo "4) Install Poetry"
+  echo "4) Install uv"
   read -p "Input your Choice [All] : " input
   SELECTION=${input:-$DEFAULT_SELECTION}
 
@@ -134,7 +127,7 @@ while true; do
     install_zsh
     zsh_res=$?
     wait
-    install_poetry
+    install_uv
     wait
     if [ $zsh_res != 0 ]; then
       install_font $zsh_res
@@ -161,7 +154,7 @@ while true; do
     gnome-session-quit --logout --force
     ;;
   4)
-    install_poetry
+    install_uv
     wait
     ;;
   *)
