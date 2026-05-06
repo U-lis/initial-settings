@@ -74,6 +74,11 @@ function install_poetry() {
   . ./poetry/poetry-settings.sh $res
 }
 
+function install_hangul_3beol() {
+  echo "Set up 3beol forks of libhangul + ibus-hangul (세모이 자판)..."
+  . ./hangul-3beol/hangul-3beol-settings.sh "$INSTALL_COMMAND"
+}
+
 # Start from here
 clear
 echo "This is simple Initial Setting Program"
@@ -119,6 +124,7 @@ while true; do
   echo "2) Set git alias"
   echo "3) Set .zshrc with install zsh, oh-my-zsh, powerline-fonts"
   echo "4) Install Poetry"
+  echo "5) Install 3beol libhangul + ibus-hangul (세모이 자판)"
   read -p "Input your Choice [All] : " input
   SELECTION=${input:-$DEFAULT_SELECTION}
 
@@ -135,6 +141,8 @@ while true; do
     zsh_res=$?
     wait
     install_poetry
+    wait
+    install_hangul_3beol
     wait
     if [ $zsh_res != 0 ]; then
       install_font $zsh_res
@@ -164,8 +172,12 @@ while true; do
     install_poetry
     wait
     ;;
+  5)
+    install_hangul_3beol
+    wait
+    ;;
   *)
-    echo "Invalid Input. Please select a number between 0 and 4"
+    echo "Invalid Input. Please select a number between 0 and 5"
     wait
     ;;
   esac
