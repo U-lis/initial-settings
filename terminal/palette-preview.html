@@ -103,6 +103,19 @@ th.grp{text-align:center; font-size:12px; letter-spacing:.1em}
 .grp-a{border-left:1px solid var(--rule)}
 .grp-b{border-left:2px solid var(--ok)}
 td.nowrap{white-space:nowrap}
+.chip-seg{padding:1px 0}
+.chip-arrow{display:inline-block; width:.62em; height:1.35em; vertical-align:-.3em;
+  clip-path:polygon(0 0, 100% 50%, 0 100%); margin-right:.28em}
+.prow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+@media (max-width:820px){.prow{grid-template-columns:1fr}}
+.pbox{display:flex; flex-direction:column; gap:7px}
+.plabel{font-family:"IBM Plex Sans Condensed",sans-serif; font-size:11.5px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2)}
+.pbox.bad .plabel{color:var(--warn)}
+.pbox.good .plabel{color:var(--ok)}
+.pbody{font-family:"IBM Plex Mono",monospace; font-size:12.6px; line-height:1.9;
+  padding:13px 14px; border-radius:5px; border:1px solid var(--rule);
+  white-space:pre; overflow-x:auto}
 .combo{padding:7px 14px; font-family:"IBM Plex Mono",monospace; font-size:12.5px; white-space:nowrap}
 .esc{font-family:"IBM Plex Mono",monospace; color:var(--ink-2); font-size:12.5px}
 .sub-head{display:flex; flex-direction:column; gap:4px; margin-top:14px}
@@ -168,6 +181,13 @@ footer a{color:var(--accent)}
     <div class="sec-head"><h2>ANSI 16색</h2>
       <p>각 색은 채워진 견본이 아니라 <em>배경 위 텍스트</em>로 표시됩니다 — 터미널에서의 실제 용도이자 대비가 실제로 문제되는 형태입니다. <code class="inl">Color0</code>은 <code class="inl">ESC[40m</code>의 패널 배경이 역할이라 텍스트 대비 기준에서 제외됩니다.</p></div>
     <div id="tables"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>프롬프트 테마</h2>
+      <p>powerline 계열(agnoster 등)은 세그먼트를 <em>색 배경</em>으로 칠하고 전경·배경을 둘 다 16색에서 고릅니다 — <code class="inl">dircolors</code>와 같은 구조의 문제라, 라이트 테마에서 2.3~2.8:1로 무너집니다. 두 대안 모두 이 문제를 피합니다. <code class="inl">powerline-45c</code>은 세그먼트를 <code class="inl">%S</code>(reverse video)로 채웁니다 — 글자가 터미널 배경색이 되므로 대비가 <code class="inl">cr(ANSI색, 배경)</code>이 되어 팔레트가 보장한 값 그대로입니다. <code class="inl">plain-45c</code>는 배경칠 자체를 쓰지 않습니다. 둘 다 256색 인덱스를 쓰지 않아 라이트/다크 전환을 따라갑니다.</p></div>
+    <div id="prompts"></div>
+    <div class="tbl-wrap"><table id="t-prompt"></table></div>
   </section>
 
   <section class="sec">
@@ -324,6 +344,38 @@ function table2(t){
 }
 const tablePane=t=>`<div class="tbl-wrap"><table>${table2(t)}</table></div>`;
 
+/* ---- 프롬프트 비교 ---- */
+// [색슬롯, 텍스트] · bg가 있으면 [fg슬롯, bg슬롯, 텍스트]
+const AGNOSTER=[["seg",0,4," ~/Documents/zeroxflow/1Hour_Back "],["sep",4,3,"\ue0b0"],
+                ["seg",0,3," \ue0a0 develop "],["sep",3,null,"\ue0b0"]];
+const SAGE=[["fg",4,"~/Documents/zeroxflow/1Hour_Back"],["fg",8," on "],["fg",5,"develop"],
+            ["fg",3," ●2"],["fg",2," ✚1"],["fg",6," ?3"],["fg",4," ↑1"],
+            ["nl",null,""],["fg",2,"❯ "]];
+// reverse 칩: 칸이 ANSI 색, 글자가 터미널 배경색. 화살표는 CSS 삼각형.
+const SAGEPL=[["chip",4,"~/Documents/zeroxflow/1Hour_Back"],["chip",5,"\u2387 develop"],["cap",5,""],
+              ["fg",3," ●2"],["fg",2," ✚1"],["fg",6," ?3"],["fg",4," ↑1"],
+              ["nl",null,""],["fg",2,"❯ "]];
+function promptRender(p,spec){
+  return spec.map(x=>{
+    if(x[0]==="nl") return "\n";
+    if(x[0]==="fg") return `<span style="color:${p.c[x[1]]}">${x[2]}</span>`;
+    if(x[0]==="chip") return `<span class="chip-seg" style="background:${p.c[x[1]]};color:${p.bg}">&nbsp;${x[2]}&nbsp;</span>`;
+    if(x[0]==="cap") return `<span class="chip-arrow" style="background:${p.c[x[1]]}"></span>`;
+    if(x[0]==="seg") return `<span style="color:${p.c[x[1]]};background:${p.c[x[2]]}">${x[3]}</span>`;
+    return `<span style="color:${p.c[x[1]]};background:${x[2]===null?p.bg:p.c[x[2]]}">${x[3]}</span>`;
+  }).join("");
+}
+function promptPane(t){
+  const box=(p,label,spec,cls)=>`<div class="pbox ${cls}">
+     <div class="plabel">${label}</div>
+     <div class="pbody" style="background:${p.bg};color:${p.fg}">${promptRender(p,spec)}</div></div>`;
+  return `<div class="prow">
+    ${box(t.light,"agnoster · Light",AGNOSTER,"bad")}${box(t.dark,"agnoster · Dark",AGNOSTER,"bad")}
+    ${box(t.light,"powerline-45c · Light",SAGEPL,"good")}${box(t.dark,"powerline-45c · Dark",SAGEPL,"good")}
+    ${box(t.light,"plain-45c · Light",SAGE,"good")}${box(t.dark,"plain-45c · Dark",SAGE,"good")}
+   </div>`;
+}
+
 /* ---- dircolors: 기본값 vs 교체안 ---- */
 const ENT=[
   ["DIR","01;34","1;34","schemas/"],
@@ -398,7 +450,34 @@ function comboTable(t){
 const comboPane=t=>`<div class="tbl-wrap"><table class="wide">${comboTable(t)}</table></div>`;
 
 /* ---- 탭 ---- */
-const PANES=[["spec",specPane],["terms",termsPane],["tables",tablePane],["combos",comboPane]];
+/* ---- 프롬프트 대비 표 ---- */
+const PUSE=[["경로 %~","blue",4],["브랜치","magenta",5],["on 접두","br.black",8],
+ ["staged ✚","green",2],["modified ●","yellow",3],["deleted ✖","red",1],
+ ["untracked ?","cyan",6],["ahead ↑","blue",4],["behind ↓","red",1],["프롬프트 ❯","green",2]];
+const AGUSE=[["경로 세그먼트","black on blue",0,4],["git clean","black on green",0,2],
+ ["git dirty","black on yellow",0,3],["context","전경 on black",null,0]];
+document.getElementById("t-prompt").innerHTML=
+`<thead><tr><th colspan="5" class="grp grp-a">agnoster · 색 배경 세그먼트</th></tr>
+ <tr><th>요소</th><th>조합</th><th class="r">Light</th><th class="r">Dark</th><th></th></tr></thead><tbody>`+
+THEMES.map(t=>AGUSE.map(([n,cmb,fi,bi])=>{
+  const rl=cr(fi===null?t.light.fg:t.light.c[fi],t.light.c[bi]);
+  const rd=cr(fi===null?t.dark.fg:t.dark.c[fi],t.dark.c[bi]);
+  return `<tr><td class="pad"><span class="nm">${t.name} · ${n}</span></td>
+   <td class="pad"><span class="esc">${cmb}</span></td>
+   <td class="pad r cr">${rl.toFixed(2)}</td><td class="pad r cr">${rd.toFixed(2)}</td>
+   <td class="pad r">${rl>=4.5&&rd>=4.5?'<span class="badge aa">AA</span>':'<span class="badge lg">'+(Math.min(rl,rd)>=3?"AA-L":"LOW")+'</span>'}</td></tr>`;
+}).join("")).join("")+
+`</tbody><thead><tr><th colspan="5" class="grp grp-b">powerline-45c / plain-45c · 대비는 모두 cr(색, 배경)</th></tr>
+ <tr><th>요소</th><th>색</th><th class="r">Light</th><th class="r">Dark</th><th></th></tr></thead><tbody>`+
+THEMES.map(t=>PUSE.map(([n,cn,i])=>{
+  const rl=cr(t.light.c[i],t.light.bg), rd=cr(t.dark.c[i],t.dark.bg);
+  return `<tr><td class="pad"><span class="nm">${t.name} · ${n}</span></td>
+   <td class="pad"><span class="esc">${cn}</span></td>
+   <td class="pad r cr">${rl.toFixed(2)}</td><td class="pad r cr">${rd.toFixed(2)}</td>
+   <td class="pad r">${rl>=4.5&&rd>=4.5?'<span class="badge aa">AA</span>':'<span class="badge lg">LOW</span>'}</td></tr>`;
+}).join("")).join("")+`</tbody>`;
+
+const PANES=[["spec",specPane],["terms",termsPane],["prompts",promptPane],["tables",tablePane],["combos",comboPane]];
 for(const [id,fn] of PANES)
   document.getElementById(id).innerHTML=THEMES.map((t,i)=>
     `<div class="pane${i?"":" on"}" data-i="${i}" role="tabpanel">${fn(t)}</div>`).join("");

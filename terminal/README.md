@@ -10,8 +10,8 @@
 | `palettes/Sage.palette` | 연두 계열. 배경 `#DDE5D5` (L\*=90) / 다크 `#152110` |
 | `palettes/Ochre.palette` | 황토 계열. 배경 `#EFD9C8` (L\*=88) / 다크 `#271E17` |
 | `dir_colors` | 두 팔레트 모두에서 읽히는 `LS_COLORS` |
-| `sage-powerline.zsh-theme` | powerline 프롬프트. powerline 패치 폰트 필요 |
-| `sage.zsh-theme` | 같은 정보를 전경색만으로. 폰트 요구 없음 |
+| `powerline-45c.zsh-theme` | powerline 프롬프트. powerline 패치 폰트 필요 |
+| `plain-45c.zsh-theme` | 같은 정보를 전경색만으로. 폰트 요구 없음 |
 | `palette-preview.html` | 대비 실측과 실제 렌더링 미리보기 (브라우저로 열면 됨) |
 
 ## 설계 기준
@@ -41,11 +41,18 @@
 
 ## 프롬프트 테마
 
+이름의 `45c` 는 **WCAG contrast 4.5:1** 이다. 팔레트·`dircolors`·프롬프트를
+관통하는 유일한 바닥선이고, 세 층 모두 네 변형(Sage/Ochre × 라이트/다크)에서
+이를 넘도록 설계했다 — 팔레트 최저 4.51, `dircolors` 4.61, 프롬프트 4.61.
+
+테마 이름에 팔레트 이름을 넣지 않은 이유는 아래 "팔레트에 종속되지 않는다"
+항목과 같다.
+
 `agnoster` 같은 powerline 테마는 세그먼트를 `%K{color}` 로 칠하고 글자를 다시
 16색에서 고른다. 라이트 테마에서는 12색이 전부 어두운 쪽에 몰려 있으므로 그
 조합이 **2.3~2.8:1** 로 무너진다. `dircolors` 와 같은 구조의 문제다.
 
-`sage-powerline` 은 세그먼트를 `%S`(reverse video, SGR 7)로 채운다. 글자가
+`powerline-45c` 는 세그먼트를 `%S`(reverse video, SGR 7)로 채운다. 글자가
 터미널 배경색이 되므로 대비가 `cr(ANSI색, 배경)` — 팔레트가 보장한 값이
 그대로 나오고, 라이트/다크 전환도 따라온다. 화살표는 세그먼트와 같은 색으로
 터미널 배경 위에 찍어 이어져 보이게 한다.
@@ -58,15 +65,15 @@ git 상태 심볼(`✚` staged / `●` modified / `✖` deleted / `?` untracked 
 | 테마 | 최저 대비 (4개 변형) |
 |---|---|
 | `agnoster` (기본) | 2.28 |
-| `sage-powerline` | **4.51** |
-| `sage` | **4.51** |
+| `powerline-45c` | **4.51** |
+| `plain-45c` | **4.51** |
 
 256색 인덱스(`FG[237]` 등)를 쓰는 테마는 팔레트를 우회하므로 피한다 —
 `af-magic` 이 그렇고, 라이트 배경에서 읽히지 않는다.
 
 **테마는 팔레트에 종속되지 않는다.** 명명된 16색만 쓰므로 Ptyxis 에서
 Sage ↔ Ochre 를 바꾸면 색이 그대로 따라온다. 팔레트별 테마를 따로 만들 필요가
-없다. 이름의 `sage-` 는 이 팔레트 묶음에서 왔을 뿐이다.
+없다. 그래서 테마 이름에는 팔레트 이름 대신 설계 기준(`45c`)을 넣었다.
 
 ### 함정: `git_prompt_info` 는 async 다
 
@@ -85,7 +92,7 @@ cp dir_colors ~/.dir_colors
 echo 'eval "$(dircolors -b ~/.dir_colors)"' >> ~/.zshrc
 
 cp *.zsh-theme ~/.oh-my-zsh/custom/themes/
-# .zshrc 의 ZSH_THEME 를 'sage-powerline' 또는 'sage' 로
+# .zshrc 의 ZSH_THEME 를 'powerline-45c' 또는 'plain-45c' 로
 ```
 
 Ptyxis 재시작 후 Preferences → Appearance 에서 Sage 또는 Ochre 선택.

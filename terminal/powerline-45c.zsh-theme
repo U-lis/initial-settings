@@ -1,4 +1,7 @@
-# sage-powerline.zsh-theme
+# powerline-45c.zsh-theme
+#
+# 45c = WCAG contrast 4.5:1. 팔레트·dircolors·프롬프트를 관통하는 바닥선이며
+# 이 테마의 모든 요소가 네 변형(Sage/Ochre × 라이트/다크)에서 이를 넘는다.
 #
 # Sage / Ochre 팔레트용 powerline 프롬프트.
 # Inconsolata for Powerline (또는 powerline 패치 폰트) 필요.
@@ -15,14 +18,14 @@
 #   ❯
 
 # powerline 글리프. 함수 안에서 참조하므로 전역이어야 한다.
-typeset -g SAGE_PL_SEP=$'\ue0b0'      # U+E0B0 
-typeset -g SAGE_PL_BRANCH=$'\ue0a0'   # U+E0A0 
+typeset -g P45_SEP=$'\ue0b0'      # U+E0B0 
+typeset -g P45_BRANCH=$'\ue0a0'   # U+E0A0 
 
 # 색 채운 칩. %S 가 SGR 7(reverse) 이라 글자는 터미널 배경색이 된다.
-sage_pl_chip() { print -n "%F{$1}%S $2 %s%f" }
+p45_chip() { print -n "%F{$1}%S $2 %s%f" }
 
 # 막대 끝의 화살표. 칩과 같은 색이라 이어져 보인다.
-sage_pl_cap() { print -n "%F{$1}${SAGE_PL_SEP}%f" }
+p45_cap() { print -n "%F{$1}${P45_SEP}%f" }
 
 # --- git: 브랜치 (칩 안에 들어가므로 색 지정 없음) ---
 ZSH_THEME_GIT_PROMPT_PREFIX=""
@@ -39,7 +42,7 @@ ZSH_THEME_GIT_PROMPT_UNMERGED="%F{red} ═%f"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{cyan} ?%f"
 ZSH_THEME_GIT_PROMPT_STASHED="%F{magenta} ⚑%f"
 
-sage_pl_remote() {
+p45_remote() {
   command git rev-parse --is-inside-work-tree &>/dev/null || return
   local ahead behind
   ahead=$(command git rev-list --count @{upstream}..HEAD 2>/dev/null) || return
@@ -55,23 +58,23 @@ sage_pl_remote() {
 
 # 경로 칩과 브랜치 칩은 사이에 화살표 없이 맞붙인다 — 하나의 라벨로 읽힌다.
 # (blue/magenta 경계에 삼각형을 넣어도 대비가 1.05~1.08 이라 보이지 않는다.)
-sage_pl_bar() {
+p45_bar() {
   local last=blue
-  sage_pl_chip blue "%~"
+  p45_chip blue "%~"
   local br="$(git_prompt_info)"
   # 첫 프롬프트에서는 async 캐시가 아직 비어 있으므로 동기 호출로 채운다
   [[ -z $br ]] && br="$(_omz_git_prompt_info)"
   if [[ -n $br ]]; then
-    sage_pl_chip magenta "${SAGE_PL_BRANCH} ${br}"
+    p45_chip magenta "${P45_BRANCH} ${br}"
     last=magenta
   fi
-  sage_pl_cap $last
+  p45_cap $last
 }
 
 setopt PROMPT_SUBST
 
 PROMPT='
-$(sage_pl_bar)$(git_prompt_status)$(sage_pl_remote)
+$(p45_bar)$(git_prompt_status)$(p45_remote)
 %(?.%F{green}.%F{red})❯%f '
 
 RPROMPT='%(?..%F{red}%?%f)'

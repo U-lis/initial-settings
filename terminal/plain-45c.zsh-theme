@@ -1,4 +1,7 @@
-# sage.zsh-theme
+# plain-45c.zsh-theme
+#
+# 45c = WCAG contrast 4.5:1. 팔레트·dircolors·프롬프트를 관통하는 바닥선이며
+# 이 테마의 모든 요소가 네 변형(Sage/Ochre × 라이트/다크)에서 이를 넘는다.
 #
 # Sage / Ochre 팔레트를 위한 프롬프트.
 #
@@ -29,7 +32,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{cyan} ?%f"
 ZSH_THEME_GIT_PROMPT_STASHED="%F{magenta} ⚑%f"
 
 # --- git: 원격과의 차이 (개수 포함) ---
-sage_git_remote() {
+p45_remote() {
   command git rev-parse --is-inside-work-tree &>/dev/null || return
   local ahead behind
   ahead=$(command git rev-list --count @{upstream}..HEAD 2>/dev/null) || return
@@ -41,7 +44,7 @@ sage_git_remote() {
 setopt PROMPT_SUBST
 
 PROMPT='
-%F{blue}%~%f $(git_prompt_info)$(git_prompt_status)$(sage_git_remote)
+%F{blue}%~%f $(git_prompt_info)$(git_prompt_status)$(p45_remote)
 %(?.%F{green}.%F{red})❯%f '
 
 # 종료 코드가 0이 아니면 오른쪽에 표시
