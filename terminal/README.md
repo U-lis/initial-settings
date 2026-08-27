@@ -64,6 +64,18 @@ git 상태 심볼(`✚` staged / `●` modified / `✖` deleted / `?` untracked 
 256색 인덱스(`FG[237]` 등)를 쓰는 테마는 팔레트를 우회하므로 피한다 —
 `af-magic` 이 그렇고, 라이트 배경에서 읽히지 않는다.
 
+**테마는 팔레트에 종속되지 않는다.** 명명된 16색만 쓰므로 Ptyxis 에서
+Sage ↔ Ochre 를 바꾸면 색이 그대로 따라온다. 팔레트별 테마를 따로 만들 필요가
+없다. 이름의 `sage-` 는 이 팔레트 묶음에서 왔을 뿐이다.
+
+### 함정: `git_prompt_info` 는 async 다
+
+oh-my-zsh 는 **`$PS1` 안에 `$(git_prompt_info)` 리터럴이 있을 때만** async
+핸들러를 등록한다 (`lib/git.zsh` 의 `_defer_async_git_register`). 이 테마처럼
+칩 함수로 감싸면 그 조건에 걸리지 않아 브랜치가 항상 빈 값이 된다.
+`_omz_register_handler _omz_git_prompt_info` 로 직접 등록하고, 첫 프롬프트에서는
+캐시가 비어 있으므로 `_omz_git_prompt_info` 동기 호출로 폴백한다.
+
 ## 수동 설치
 
 ```sh

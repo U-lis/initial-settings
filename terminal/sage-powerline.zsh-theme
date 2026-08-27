@@ -46,8 +46,15 @@ sage_pl_remote() {
   [[ $behind -gt 0 ]] && print -n " %F{red}↓${behind}%f"
 }
 
+# oh-my-zsh 의 git_prompt_info 는 async 다. 핸들러는 $PS1 안에
+# $(git_prompt_info) 리터럴이 있을 때만 자동 등록되는데, 여기서는 칩으로
+# 감싸느라 그 조건에 걸리지 않는다. 직접 등록한다.
+(( ${+functions[_omz_register_handler]} )) && _omz_register_handler _omz_git_prompt_info
+
 sage_pl_git() {
   local br="$(git_prompt_info)"
+  # 첫 프롬프트에서는 async 캐시가 아직 비어 있으므로 동기 호출로 채운다
+  [[ -z $br ]] && br="$(_omz_git_prompt_info)"
   [[ -z $br ]] && return
   sage_pl_chip magenta "${SAGE_PL_BRANCH} ${br}"
 }
