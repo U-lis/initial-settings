@@ -50,7 +50,5 @@ Ptyxis 재시작 후 Preferences → Appearance 에서 Sage 또는 Ochre 선택.
 
 ## TODO
 
-- [ ] `terminal-settings.sh` 작성 — 팔레트 복사 + Ptyxis 프로파일을 Sage 로
-      지정(`gsettings set org.gnome.Ptyxis.Profile:… palette 'Sage'`) +
-      `.zshrc` 에 dircolors 한 줄 추가
-- [ ] `install.sh` 에 `install_terminal()` 추가
+- [ ] `terminal-settings.sh` 작성 — U-lis/initial-settings#3
+- [ ] `install.sh` 에 `install_terminal()` 추가 — U-lis/initial-settings#4
