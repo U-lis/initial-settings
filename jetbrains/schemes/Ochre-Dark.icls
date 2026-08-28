@@ -1,0 +1,238 @@
+<scheme name="Ochre Dark" version="142" parent_scheme="Dark">
+  <metaInfo>
+    <property name="originalScheme">Ochre Dark</property>
+  </metaInfo>
+  <colors>
+      <option name="CONSOLE_BACKGROUND_KEY" value="271e17" />
+      <option name="CARET_COLOR" value="5cc0bc" />
+      <option name="GUTTER_BACKGROUND" value="271e17" />
+      <option name="BLOCK_TERMINAL_BLOCK_BACKGROUND_START" value="271e17" />
+      <option name="BLOCK_TERMINAL_BLOCK_BACKGROUND_END" value="271e17" />
+      <option name="BLOCK_TERMINAL_PROMPT_SEPARATOR_COLOR" value="8d8680" />
+  </colors>
+  <attributes>
+      <option name="TEXT">
+        <value>
+          <option name="FOREGROUND" value="dfd5cf" />
+          <option name="BACKGROUND" value="271e17" />
+        </value>
+      </option>
+      <option name="CONSOLE_NORMAL_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="dfd5cf" />
+        </value>
+      </option>
+      <option name="CONSOLE_SYSTEM_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="6fb6b4" />
+        </value>
+      </option>
+      <option name="CONSOLE_ERROR_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="e36056" />
+        </value>
+      </option>
+      <option name="CONSOLE_USER_INPUT">
+        <value>
+          <option name="FOREGROUND" value="91ba7a" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_COMMAND">
+        <value>
+          <option name="FOREGROUND" value="dfd5cf" />
+        </value>
+      </option>
+      <option name="CONSOLE_BLACK_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="473e38" />
+          <option name="BACKGROUND" value="473e38" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_BLACK">
+        <value>
+          <option name="FOREGROUND" value="473e38" />
+          <option name="BACKGROUND" value="473e38" />
+        </value>
+      </option>
+      <option name="CONSOLE_RED_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="e36056" />
+          <option name="BACKGROUND" value="e36056" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_RED">
+        <value>
+          <option name="FOREGROUND" value="e36056" />
+          <option name="BACKGROUND" value="e36056" />
+        </value>
+      </option>
+      <option name="CONSOLE_GREEN_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="91ba7a" />
+          <option name="BACKGROUND" value="91ba7a" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_GREEN">
+        <value>
+          <option name="FOREGROUND" value="91ba7a" />
+          <option name="BACKGROUND" value="91ba7a" />
+        </value>
+      </option>
+      <option name="CONSOLE_YELLOW_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="c5a358" />
+          <option name="BACKGROUND" value="c5a358" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_YELLOW">
+        <value>
+          <option name="FOREGROUND" value="c5a358" />
+          <option name="BACKGROUND" value="c5a358" />
+        </value>
+      </option>
+      <option name="CONSOLE_BLUE_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="67a6f1" />
+          <option name="BACKGROUND" value="67a6f1" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_BLUE">
+        <value>
+          <option name="FOREGROUND" value="67a6f1" />
+          <option name="BACKGROUND" value="67a6f1" />
+        </value>
+      </option>
+      <option name="CONSOLE_MAGENTA_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="e076d6" />
+          <option name="BACKGROUND" value="e076d6" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_MAGENTA">
+        <value>
+          <option name="FOREGROUND" value="e076d6" />
+          <option name="BACKGROUND" value="e076d6" />
+        </value>
+      </option>
+      <option name="CONSOLE_CYAN_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="6fb6b4" />
+          <option name="BACKGROUND" value="6fb6b4" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_CYAN">
+        <value>
+          <option name="FOREGROUND" value="6fb6b4" />
+          <option name="BACKGROUND" value="6fb6b4" />
+        </value>
+      </option>
+      <option name="CONSOLE_GRAY_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="ccc5c0" />
+          <option name="BACKGROUND" value="ccc5c0" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_WHITE">
+        <value>
+          <option name="FOREGROUND" value="ccc5c0" />
+          <option name="BACKGROUND" value="ccc5c0" />
+        </value>
+      </option>
+      <option name="CONSOLE_DARKGRAY_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="8d8680" />
+          <option name="BACKGROUND" value="8d8680" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_BLACK_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="8d8680" />
+          <option name="BACKGROUND" value="8d8680" />
+        </value>
+      </option>
+      <option name="CONSOLE_RED_BRIGHT_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="f98275" />
+          <option name="BACKGROUND" value="f98275" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_RED_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="f98275" />
+          <option name="BACKGROUND" value="f98275" />
+        </value>
+      </option>
+      <option name="CONSOLE_GREEN_BRIGHT_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="92d76e" />
+          <option name="BACKGROUND" value="92d76e" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_GREEN_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="92d76e" />
+          <option name="BACKGROUND" value="92d76e" />
+        </value>
+      </option>
+      <option name="CONSOLE_YELLOW_BRIGHT_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="e8b83e" />
+          <option name="BACKGROUND" value="e8b83e" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_YELLOW_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="e8b83e" />
+          <option name="BACKGROUND" value="e8b83e" />
+        </value>
+      </option>
+      <option name="CONSOLE_BLUE_BRIGHT_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="90bdfe" />
+          <option name="BACKGROUND" value="90bdfe" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_BLUE_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="90bdfe" />
+          <option name="BACKGROUND" value="90bdfe" />
+        </value>
+      </option>
+      <option name="CONSOLE_MAGENTA_BRIGHT_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="f790eb" />
+          <option name="BACKGROUND" value="f790eb" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_MAGENTA_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="f790eb" />
+          <option name="BACKGROUND" value="f790eb" />
+        </value>
+      </option>
+      <option name="CONSOLE_CYAN_BRIGHT_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="59d3d1" />
+          <option name="BACKGROUND" value="59d3d1" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_CYAN_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="59d3d1" />
+          <option name="BACKGROUND" value="59d3d1" />
+        </value>
+      </option>
+      <option name="CONSOLE_WHITE_OUTPUT">
+        <value>
+          <option name="FOREGROUND" value="f0eae6" />
+          <option name="BACKGROUND" value="f0eae6" />
+        </value>
+      </option>
+      <option name="BLOCK_TERMINAL_WHITE_BRIGHT">
+        <value>
+          <option name="FOREGROUND" value="f0eae6" />
+          <option name="BACKGROUND" value="f0eae6" />
+        </value>
+      </option>
+  </attributes>
+</scheme>
