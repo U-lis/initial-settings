@@ -13,8 +13,9 @@
 # 색 배경으로 칠하기 때문이다. 전경과 배경을 둘 다 16색에서 고르면
 # 라이트 테마에서 2.3~2.8:1 로 무너진다. dircolors 와 같은 문제다.
 #
-#   ~/Documents/initial-settings  on develop ●2 ✚1 ?3  ↑1
-#   ❯
+#   ~/Documents/initial-settings  on develop ✚ ● ? ↑1 ❯ █
+#
+# 입력 커서를 같은 줄에 둔다 (powerline-45c 와 같은 배치).
 
 # --- git: 브랜치 ---
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{8}on%f %F{magenta}"
@@ -44,8 +45,7 @@ p45_remote() {
 setopt PROMPT_SUBST
 
 PROMPT='
-%F{blue}%~%f $(git_prompt_info)$(git_prompt_status)$(p45_remote)
-%(?.%F{green}.%F{red})❯%f '
+%F{blue}%~%f $(git_prompt_info)$(git_prompt_status)$(p45_remote) %(?.%F{green}.%F{red})❯%f '
 
 # 종료 코드가 0이 아니면 오른쪽에 표시
 RPROMPT='%(?..%F{red}%?%f)'
