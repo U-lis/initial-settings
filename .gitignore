@@ -1,61 +1,17 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
+# 이 레포는 셸 스크립트다. 예전 .gitignore 는 파이썬 패키징 템플릿이라
+# lib/ 와 lib64/ 가 들어 있었고, 그 때문에 lib/common.sh 가 조용히 커밋에서
+# 빠졌다. 필요한 것만 남긴다.
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-env/
+# 생성물 (jetbrains/build 등)
 build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.cache
-nosetests.xml
-coverage.xml
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Temp. files
+# 에디터 / OS
+.idea/
+.vscode/
 *~
 *.swp
+.DS_Store
 
-# Jetbrains
-.idea/
+# 파이썬 (jetbrains/ 의 생성 스크립트)
+__pycache__/
+*.py[cod]
