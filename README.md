@@ -1,16 +1,20 @@
 # INITIAL SETTINGS
 > Initial Settings for new UNIX/Linux Computer
 
-This Repo contains some script for basic develop environment settings.
-With this, You can set this:
- 1. set git aliases (See 2.1)
- 2. set zshrc with install [zsh](http://www.zsh.org/), [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
- 3. Install [powerline font](https://github.com/Lokaltog/powerline-fonts)
+Shell scripts that set up a development environment on a fresh machine:
+git aliases, [zsh](https://www.zsh.org/) with
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh), and powerline-patched fonts.
+
+Targets Ubuntu 24.04 and 26.04 from one code path — verified on 26.04, and the
+24.04 path is taken by feature detection rather than a version check. Every
+script is runnable on its own and safe to re-run.
 
 # Introduction
 ## 0. Requirements
   - Internet connection
-  - git (optional)
+  - `apt` (Ubuntu/Debian). Other distros are not supported.
+  - `curl` or `wget`, for the oh-my-zsh installer
+  - git (optional — you can download the zip instead)
 
 
 ## 1. Installation
@@ -22,8 +26,16 @@ or just download zip file and unzip it.
 $ cd initial-settings
 $ ./install.sh
 ```
-If permission problem occurs, retry after `$ chmod +x install.sh`  
-follow introductions
+If a permission problem occurs, retry after `$ chmod +x install.sh`, then
+follow the menu.
+
+You can also run a single piece without the menu:
+
+```shell script
+$ ./git/git-settings.sh
+$ ./zsh/zsh-settings.sh agnoster        # theme name is optional
+$ ./font/font-settings.sh "Inconsolata-dz for Powerline Medium 12"
+```
 
 
 ## 2. Contents
@@ -54,11 +66,19 @@ Every script is runnable on its own and safe to re-run.
 
 ### 2.2. zshrc
 - install zsh
-- install oh-my-zsh
-- set `.zshrc`
-- install powerline-fonts(Inconsolata-dz, DejaVu Sans Mono)
+- install oh-my-zsh over HTTPS (the old script used plain HTTP with certificate
+  checking disabled)
+- set `ZSH_THEME` and `DEFAULT_USER` in `.zshrc` by pattern, not by line number
+- offer to change the login shell, using `command -v zsh` and checking
+  `/etc/shells` first
+- when run from `install.sh`: if the chosen theme needs powerline glyphs
+  (`agnoster`, `powerlevel*`, `powerline*`), install the fonts too
 
 ### 2.3. install fonts
+The bundled fonts come from [powerline/fonts](https://github.com/powerline/fonts)
+(archived upstream; [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) is the
+maintained successor if you want more glyphs).
+
 - copy font files into `~/.local/share/fonts` (no sudo needed)
 - set the terminal font, detecting Ptyxis (26.04 default) or gnome-terminal
   (24.04 default); skipped when neither is present
