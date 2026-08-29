@@ -1,172 +1,95 @@
 #!/bin/bash
+# 새 기계 초기 설정.
+#
+# 버전 분기는 하지 않는다. 무엇이 설치돼 있는지로 판단한다 (lib/detect.sh).
 
-# Set default values
-DEFAULT_SELECTION=1
-SYSTEM=$(uname)
+set -uo pipefail
 
-BOLD=$(tput bold)
-NORM=$(tput sgr0)
-PURPLE='\033[0;35m'
-NO_COLOR='\033[0m'
+HERE=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=lib/common.sh
+. "$HERE/lib/common.sh"
+# shellcheck source=lib/detect.sh
+. "$HERE/lib/detect.sh"
 
-if [ "$SYSTEM" = 'Linux' ]; then
-  SYSTEM_TYPE=$SYSTEM
-  INSTALL_COMMAND="sudo apt-get install -y "
-#elif [ $SYSTEM = 'Darwin' ]; then
-#	SYSTEM_TYPE='Mac OS X'
-#	INSTALL_COMMAND="brew -y "
-else
-  SYSTEM_TYPE='NOT VALID. This script only supports Ubuntu linux.'
-fi
+# agnoster 처럼 powerline 글리프를 쓰는 테마. 걸리면 폰트도 같이 깐다.
+# [[ =~ ]] 용 정규식. case 패턴으로 쓰면 변수 안의 | 가 대안으로 안 읽힌다.
+POWERLINE_THEMES='agnoster|powerlevel|powerline'
+POWERLINE_FONT='Inconsolata-dz for Powerline Medium 12'
 
-# Functions
-function wait() {
-  read -p "Press any key to continue..."
+install_git() { bash "$HERE/git/git-settings.sh"; }
+
+install_zsh() {
+  bash "$HERE/zsh/zsh-settings.sh" || return $?
+  # 예전에는 zsh-settings.sh 가 종료 코드 1/2 로 테마를 알렸다. .zshrc 에서
+  # 직접 읽는 편이 스크립트를 따로 돌렸을 때도 맞는다.
+  # 파이프로 head/grep 에 넘기면 SIGPIPE 가 pipefail 에 걸린다 (lib/detect.sh 참고).
+  local theme
+  theme=$(sed -n 's/^ZSH_THEME=["'"'"']\?\([^"'"'"']*\)["'"'"']\?.*/\1/p' "$HOME/.zshrc" 2>/dev/null)
+  theme=${theme%%$'\n'*}
+  if [[ $theme =~ $POWERLINE_THEMES ]]; then
+    info "테마 '$theme' 는 powerline 글리프를 쓴다. 폰트도 설치한다."
+    install_font "$POWERLINE_FONT"
+  fi
 }
 
-function has_command() {
-  COMMAND="$(which "$1")"
-  if [ -z "$COMMAND" ]; then
-    return 0
-  else
+install_font() { bash "$HERE/font/font-settings.sh" "${1:-}"; }
+
+# poetry 는 26.04 에서 죽는다. uv 로 교체 예정 (issue #8). 그때까지 그대로 둔다.
+install_poetry() {
+  if ! has_command python3; then
+    err "poetry 는 Python 3 이 필요하다. 먼저 설치해라."
     return 1
   fi
+  warn "poetry 스크립트는 24.04 기준이다. 26.04 에서는 실패할 수 있다 (issue #8)."
+  bash "$HERE/poetry/poetry-settings.sh"
 }
 
-function install_git() {
-  echo "Set git alias..."
-  has_command git
-  res=$?
-  . ./git/git-settings.sh $res "$INSTALL_COMMAND"
+main_menu() {
+  while true; do
+    clear
+    printf '%sinitial-settings%s\n' "$BOLD" "$NORM"
+    info "$(os_field PRETTY_NAME)  /  터미널: $(detect_terminal)"
+    echo
+    echo "  1) 전부 (git, zsh, 폰트)   [기본]"
+    echo "  2) git alias"
+    echo "  3) zsh + oh-my-zsh + 폰트"
+    echo "  4) powerline 폰트만"
+    echo "  5) poetry  (구버전, issue #8)"
+    echo "  0) 종료"
+    echo
+    local input
+    read -r -p "선택: " input || exit 0
+    case ${input:-1} in
+    0) exit 0 ;;
+    1)
+      install_git
+      pause
+      install_zsh
+      pause
+      note "기본 셸 변경은 다음 로그인부터 적용된다."
+      ;;
+    2) install_git ;;
+    3) install_zsh ;;
+    4) install_font "$POWERLINE_FONT" ;;
+    5) install_poetry ;;
+    *)
+      warn "0에서 5 사이로 골라라."
+      ;;
+    esac
+    pause
+  done
 }
 
-function install_zsh() {
-  echo "Set .zshrc with zsh/oh-my-zsh/powerline-fonts..."
-  has_command zsh
-  res=$?
-  . ./zsh/zsh-settings.sh $res "$SYSTEM" "$INSTALL_COMMAND"
-  return $?
-}
-
-function install_font() {
-  if [ "$1" == 2 ]; then
-    theme='agnoster'
-  fi
-  echo "Install powerline-fonts..."
-  . ./font/font-settings.sh "$SYSTEM" $theme
-}
-
-function install_poetry() {
-  has_command python3
-  res=$?
-
-  if [ $res == 0 ]; then
-    echo "Poetry needs Python 3.6+. Please install python first."
-    return $res
-  fi
-
-  python3 --version
-  res=$?
-  echo $res
-
-  has_command poetry
-  res=$?
-  . ./poetry/poetry-settings.sh $res
-}
-
-# Start from here
-clear
-echo "This is simple Initial Setting Program"
-echo "Your System Type is $SYSTEM_TYPE"
-
-if [ "$SYSTEM_TYPE" = 'NOT VALID' ]; then
-  echo "This program does not support current system type $SYSTEM."
-  echo "Exiting..."
-  exit 0
-#elif [ "$SYSTEM_TYPE" = 'Mac OS X' ]; then
-#  while true; do
-#    echo "We use Homebrew. If not exist, we may install it."
-#    read -p "Install Homebrew? If you disagree, quit this program. type s for skip. [y/s/N] " input
-#    input=${input:-'N'}
-#    case $input in
-#    [Yy])
-#      echo "install Homebrew..."
-#      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-#      wait
-#      break
-#      ;;
-#    [sS])
-#      break
-#      ;;
-#    [Nn])
-#      echo "Exiting..."
-#      exit 0
-#      ;;
-#    *)
-#      echo "Invalid input."
-#      ;;
-#    esac
-#  done
-else
-  wait
+# 예전에는 SYSTEM_TYPE 에 'NOT VALID. This script...' 를 넣고 = 'NOT VALID' 로
+# 비교해서 이 분기가 절대 안 잡혔다. 비 Linux 에서 INSTALL_COMMAND 가 빈 채로
+# 진행됐다. macOS 분기는 주석으로만 남아 있어 지웠다.
+if [ "$(uname)" != 'Linux' ]; then
+  err "이 스크립트는 Linux(apt 계열)만 지원한다. 현재: $(uname)"
+  exit 1
+fi
+if [ -z "$(pkg_install_command)" ]; then
+  warn "apt 를 찾지 못했다. 패키지 설치가 필요한 항목은 실패한다."
+  pause
 fi
 
-while true; do
-  clear
-  echo "You can set git alias, .zshrc with appropriate fonts."
-  echo "0) Quit"
-  echo "1) Set All items [Default]"
-  echo "2) Set git alias"
-  echo "3) Set .zshrc with install zsh, oh-my-zsh, powerline-fonts"
-  echo "4) Install Poetry"
-  read -p "Input your Choice [All] : " input
-  SELECTION=${input:-$DEFAULT_SELECTION}
-
-  case $SELECTION in
-  0)
-    echo "Exiting..."
-    exit 0
-    ;;
-  1)
-    echo "Set All Items..."
-    install_git
-    wait
-    install_zsh
-    zsh_res=$?
-    wait
-    install_poetry
-    wait
-    if [ $zsh_res != 0 ]; then
-      install_font $zsh_res
-      wait
-    fi
-    echo -e "${PURPLE}${BOLD}The script will log you out."
-    echo -e "All settings ar done, so you don't need to re run this script.${NORM}${NO_COLOR}"
-    wait
-    gnome-session-quit --logout --force
-    ;;
-  2)
-    install_git
-    wait
-    ;;
-  3)
-    install_zsh
-    zsh_res=$?
-    wait
-    if [ $zsh_res != 0 ]; then
-      install_font $zsh_res
-    fi
-    echo -e "${PURPLE}${BOLD}The script will log you out. Please run this script after re-login.${NORM}${NO_COLOR}"
-    wait
-    gnome-session-quit --logout --force
-    ;;
-  4)
-    install_poetry
-    wait
-    ;;
-  *)
-    echo "Invalid Input. Please select a number between 0 and 4"
-    wait
-    ;;
-  esac
-done
+main_menu

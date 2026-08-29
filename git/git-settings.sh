@@ -1,38 +1,56 @@
-DEFAULT_YN='Y'
+#!/bin/bash
+# git alias 와 기본 에디터 설정.
 
-clear
-if [ "$1" = 0 ]; then
-  read -p "You don't have git yet. Proceed with install git? [Y/n] : " input
-  input=${input:-$DEFAULT_YN}
+set -uo pipefail
 
-  case $input in
-  [Yy])
-    echo "install Git..."
-    $2 git
-    echo "git installed"
+HERE=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=lib/common.sh
+. "$HERE/../lib/common.sh"
+# shellcheck source=lib/detect.sh
+. "$HERE/../lib/detect.sh"
+
+if ! has_command git; then
+  step "git 이 없다"
+  confirm "git 을 설치할까?" Y
+  case $? in
+  0)
+    install_cmd=$(pkg_install_command)
+    if [ -z "$install_cmd" ]; then
+      err "apt 를 찾지 못했다. git 을 직접 설치해라."
+      exit 1
+    fi
+    $install_cmd git || exit 1
+    ok "git 설치"
     ;;
-  [Nn])
-    echo "Exit setting up git..."
-    return
+  *)
+    info "git 설정을 건너뛴다."
+    exit 0
     ;;
   esac
 fi
 
-echo "setting git alias..."
-git config --global --replace-all alias.co 'checkout'
-echo "Now, git co master == git checkout master"
-git config --global --replace-all alias.st 'status -sb'
-echo "Now, git st == git status -sb"
-git config --global --replace-all alias.tags 'tag -l'
-echo "Now, git tags == git tag -l"
-git config --global --replace-all alias.br 'branch -a'
-echo "Now, git br == git branch -a"
-git config --global --replace-all alias.re 'remote -v'
-echo "Now, git re == git remote -v"
-git config --global --replace-all alias.lg "log --color --graph \
+step "git alias 설정"
+set_alias() {
+  git config --global --replace-all "alias.$1" "$2"
+  ok "git $1 == git $2"
+}
+
+set_alias co 'checkout'
+set_alias st 'status -sb'
+set_alias tags 'tag -l'
+set_alias br 'branch -a'
+set_alias re 'remote -v'
+set_alias lg "log --color --graph \
 	--pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
 	--abbrev-commit --"
-echo "Now, git lg == git log (with pretty format)"
-git config --global core.editor vim
-echo "Now, your default git editor is vim"
-echo "Setting Complete!!"
+
+# 예전에는 vim 을 무조건 박았다. 없는 기계에서 커밋이 막힌다.
+step "기본 에디터"
+if [ -n "$(git config --global --get core.editor || true)" ]; then
+  info "이미 설정돼 있다: $(git config --global --get core.editor)"
+elif has_command vim; then
+  git config --global core.editor vim
+  ok "vim"
+else
+  info "vim 이 없어 건드리지 않는다. git 기본값(\$EDITOR 또는 nano)을 쓴다."
+fi
